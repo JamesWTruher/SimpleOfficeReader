@@ -461,10 +461,9 @@ namespace DotMaysWind.Office
             {
                 stream.Seek(24, SeekOrigin.Begin);
                 UInt32 propertysCount = reader.ReadUInt32();
-                UInt32 docSumamryStart = 0;
+                UInt32 docSummaryStart = 0;
 
-                for (Int32 i = 0; i < propertysCount; i++)
-                {
+                // for (Int32 i = 0; i < propertysCount; i++) {
                     Byte[] clsid = reader.ReadBytes(16);
                     if (clsid.Length == 16 &&
                         clsid[0] == 0x02 && clsid[1] == 0xD5 && clsid[2] == 0xCD && clsid[3] == 0xD5 &&
@@ -472,22 +471,22 @@ namespace DotMaysWind.Office
                         clsid[8] == 0x93 && clsid[9] == 0x97 && clsid[10] == 0x08 && clsid[11] == 0x00 &&
                         clsid[12] == 0x2B && clsid[13] == 0x2C && clsid[14] == 0xF9 && clsid[15] == 0xAE)//如果是DocumentSummaryInformation
                     {
-                        docSumamryStart = reader.ReadUInt32();
-                        break;
+                        docSummaryStart = reader.ReadUInt32();
+                        // break;
                     }
                     else
                     {
                         //stream.Seek(4, SeekOrigin.Current);
                         return;
                     }
-                }
+                // }
 
-                if (docSumamryStart == 0)
+                if (docSummaryStart == 0)
                 {
                     return;
                 }
 
-                stream.Seek(docSumamryStart, SeekOrigin.Begin);
+                stream.Seek(docSummaryStart, SeekOrigin.Begin);
                 this._documentSummaryInformation = new List<DocumentSummaryInformation>();
                 UInt32 docSummarySize = reader.ReadUInt32();
                 UInt32 docSummaryCount = reader.ReadUInt32();
@@ -507,14 +506,14 @@ namespace DotMaysWind.Office
 
                     offsetMark = stream.Position;
 
-                    stream.Seek(docSumamryStart + properyOffset, SeekOrigin.Begin);
+                    stream.Seek(docSummaryStart + properyOffset, SeekOrigin.Begin);
 
                     if (stream.Position > stream.Length)
                     {
                         continue;
                     }
 
-                    stream.Seek(docSumamryStart + properyOffset, SeekOrigin.Begin);
+                    stream.Seek(docSummaryStart + properyOffset, SeekOrigin.Begin);
                     UInt32 propertyType = reader.ReadUInt32();
                     DocumentSummaryInformation info = null;
                     Byte[] data = null;
@@ -559,10 +558,9 @@ namespace DotMaysWind.Office
             {
                 stream.Seek(24, SeekOrigin.Begin);
                 UInt32 propertysCount = reader.ReadUInt32();
-                UInt32 docSumamryStart = 0;
+                UInt32 docSummaryStart = 0;
 
-                for (Int32 i = 0; i < propertysCount; i++)
-                {
+                // for (Int32 i = 0; i < propertysCount; i++) {
                     Byte[] clsid = reader.ReadBytes(16);
                     if (clsid.Length == 16 &&
                         clsid[0] == 0xE0 && clsid[1] == 0x85 && clsid[2] == 0x9F && clsid[3] == 0xF2 &&
@@ -570,22 +568,22 @@ namespace DotMaysWind.Office
                         clsid[8] == 0xAB && clsid[9] == 0x91 && clsid[10] == 0x08 && clsid[11] == 0x00 &&
                         clsid[12] == 0x2B && clsid[13] == 0x27 && clsid[14] == 0xB3 && clsid[15] == 0xD9)//如果是SummaryInformation
                     {
-                        docSumamryStart = reader.ReadUInt32();
-                        break;
+                        docSummaryStart = reader.ReadUInt32();
+                //         break;
                     }
                     else
                     {
                         //stream.Seek(4, SeekOrigin.Current);
                         return;
                     }
-                }
+                // }
 
-                if (docSumamryStart == 0)
+                if (docSummaryStart == 0)
                 {
                     return;
                 }
 
-                stream.Seek(docSumamryStart, SeekOrigin.Begin);
+                stream.Seek(docSummaryStart, SeekOrigin.Begin);
                 this._summaryInformation = new List<SummaryInformation>();
                 UInt32 docSummarySize = reader.ReadUInt32();
                 UInt32 docSummaryCount = reader.ReadUInt32();
@@ -605,7 +603,7 @@ namespace DotMaysWind.Office
 
                     offsetMark = stream.Position;
 
-                    stream.Seek(docSumamryStart + properyOffset, SeekOrigin.Begin);
+                    stream.Seek(docSummaryStart + properyOffset, SeekOrigin.Begin);
 
                     if (stream.Position > stream.Length)
                     {

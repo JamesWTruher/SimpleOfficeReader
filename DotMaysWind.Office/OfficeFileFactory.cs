@@ -25,6 +25,14 @@ namespace DotMaysWind.Office
             {
                 return new PowerPointOOXMLFile(filePath);
             }
+            else if (String.Equals(".xls", extension))
+            {
+                return new ExcelFile(filePath);
+            }
+            else if (String.Equals(".vsd", extension))
+            {
+                return new VisioFile(filePath);
+            }
             else
             {
                 if (extension[extension.Length - 1] == 'x' || extension[extension.Length - 1] == 'X')
